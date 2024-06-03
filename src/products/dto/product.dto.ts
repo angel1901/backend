@@ -9,4 +9,7 @@ export class AddProductDto {
 
   @IsNotEmpty()
   public value: string;
+
+  @IsNotEmpty()
+  public url_image: string;
 }

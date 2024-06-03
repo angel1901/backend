@@ -52,13 +52,14 @@ export class ProductsService {
 
   async add(dto: AddProductDto, req: Request, res: Response) {
     try {
-      const { name, description, value } = dto;
+      const { name, description, value, url_image } = dto;
       const userInfo = req?.user as { id: string; email: string };
 
       const dataProduct: DataProduct = {
         name,
         description,
         value,
+        url_image,
         user_creator_id: userInfo?.id ?? '2312',
       };
 

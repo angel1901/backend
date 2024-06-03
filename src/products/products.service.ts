@@ -15,8 +15,13 @@ export class ProductsService {
 
   async index(res: Response) {
     try {
-      const products = await this.prisma.products.findMany();
-      return res.send(response('succes', 'success', products));
+      const products = await this.prisma.products.findMany({
+        where: {
+          status: true,
+        },
+        orderBy: [{ created_at: 'desc' }],
+      });
+      return res.send(response('success', 'success', products));
     } catch (error) {
       return res
         .status(500)
@@ -37,7 +42,7 @@ export class ProductsService {
         throw new NotFoundException();
       }
 
-      return res.send(response('succes', 'success', product));
+      return res.send(response('success', 'success', product));
     } catch (error) {
       return res
         .status(500)
@@ -48,21 +53,22 @@ export class ProductsService {
   async add(dto: AddProductDto, req: Request, res: Response) {
     try {
       const { name, description, value } = dto;
-      const userInfo = req.user as { id: string; email: string };
+      const userInfo = req?.user as { id: string; email: string };
 
       const dataProduct: DataProduct = {
         name,
         description,
         value,
-        user_creator_id: userInfo.id,
+        user_creator_id: userInfo?.id ?? '2312',
       };
 
       const product = await this.prisma.products.create({
         data: dataProduct,
       });
 
-      return res.send(response('succes', 'Product Created', product));
+      return res.send(response('success', 'Product Created', product));
     } catch (error) {
+      console.log(error);
       return res
         .status(500)
         .send(response('error', 'Internal server error', []));
@@ -86,7 +92,7 @@ export class ProductsService {
         },
       });
 
-      return res.send(response('succes', 'Product Updated', product));
+      return res.send(response('success', 'Product Updated', product));
     } catch (error) {
       return res
         .status(500)
@@ -98,7 +104,7 @@ export class ProductsService {
     try {
       const product = await this.validateProduct(id);
       if (!product) {
-        throw new NotFoundException('Product doesnt exist');
+        return res.send(response('Error', 'Product doesnt Exist', []));
       }
 
       await this.prisma.products.update({
@@ -111,8 +117,9 @@ export class ProductsService {
         },
       });
 
-      return res.send(response('succes', 'Product deleted', []));
+      return res.send(response('success', 'Product deleted', []));
     } catch (error) {
+      console.log(error);
       return res
         .status(500)
         .send(response('error', 'Internal server error', []));
@@ -131,6 +138,6 @@ export class ProductsService {
       return false;
     }
 
-    return product?.id;
+    return true;
   }
 }

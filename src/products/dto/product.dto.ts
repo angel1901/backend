@@ -10,12 +10,3 @@ export class AddProductDto {
   @IsNotEmpty()
   public value: string;
 }
-
-export class AuthLoginDto {
-  @IsEmail()
-  public email: string;
-
-  @IsNotEmpty()
-  @Length(8, 12, { message: 'Password has to be between 8 - 12 characters' })
-  public password: string;
-}

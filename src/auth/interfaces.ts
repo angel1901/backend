@@ -14,3 +14,10 @@ export interface SignToken {
   id: string;
   email: string;
 }
+
+export interface DataProduct {
+  name: string;
+  description: string;
+  value: string;
+  user_creator_id: string;
+}

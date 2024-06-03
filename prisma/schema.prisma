@@ -14,11 +14,22 @@ datasource db {
 }
 
 model User {
-  id String @unique @default(uuid())
-  email String @unique
-  name String
-  last_name String
+  id              String   @unique @default(uuid())
+  email           String   @unique
+  name            String
+  last_name       String
   hashed_password String
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt()
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt()
+}
+
+model Products {
+  id              String   @unique @default(uuid())
+  name            String
+  description     String
+  value           String
+  status          Boolean  @default(true)
+  user_creator_id String
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt()
 }

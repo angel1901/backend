@@ -20,4 +20,5 @@ export interface DataProduct {
   description: string;
   value: string;
   user_creator_id: string;
+  url_image: string;
 }

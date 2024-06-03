@@ -29,15 +29,7 @@ model Products {
   description     String
   value           String
   status          Boolean     @default(true)
-  user_creator_id String
-  created_at      DateTime    @default(now())
-  updated_at      DateTime    @updatedAt()
-  OrderLine       OrderLine[]
-}
-
-model Order {
-  id              String      @unique @default(uuid())
-  value           Int         @default(0)
+  url_image       String
   user_creator_id String
   status          Boolean     @default(true)
   created_at      DateTime    @default(now())

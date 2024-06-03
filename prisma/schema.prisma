@@ -33,3 +33,12 @@ model Products {
   created_at      DateTime @default(now())
   updated_at      DateTime @updatedAt()
 }
+
+model Order {
+  id              String   @unique @default(uuid())
+  value           Int      @default(0)
+  user_creator_id String
+  status          Boolean  @default(true)
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt()
+}

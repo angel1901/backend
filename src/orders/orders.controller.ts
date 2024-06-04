@@ -15,7 +15,11 @@ import {
 
 import { Request, Response } from 'express';
 import { JwtAuthGuard } from 'src/auth/jwt.guard';
-import { AddOrderDto } from './dto/order.dto';
+import {
+  AddOrderDto,
+  AddOrderLineAnOrderdDto,
+  AddOrderLineDto,
+} from './dto/order.dto';
 
 // @UseGuards(JwtAuthGuard)
 @Controller('orders')
@@ -36,6 +40,24 @@ export class OrdersController {
     return this.ordersService.add(dto, req, res);
   }
 
+  @Post('lines')
+  addProductToOrder(
+    @Body() dto: AddOrderLineDto,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
+    return this.ordersService.addProductToOrder(dto, req, res);
+  }
+
+  @Post('orders-lines')
+  addOrderAndLines(
+    @Body() dto: AddOrderLineAnOrderdDto,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
+    return this.ordersService.addOrderAndLines(dto, req, res);
+  }
+
   @Put(':id')
   update(
     @Body() dto: AddOrderDto,
@@ -53,5 +75,13 @@ export class OrdersController {
     @Res() res: Response,
   ) {
     return this.ordersService.delete(params.id, res);
+  }
+  @Delete('order-line/:id')
+  deleteOrderLine(
+    @Param() params: { id: string },
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
+    return this.ordersService.deleteOrderLine(params.id, res);
   }
 }

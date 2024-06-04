@@ -39,6 +39,7 @@ model Products {
 model Order {
   id              String      @unique @default(uuid())
   value           Int         @default(0)
+  name            String
   user_creator_id String
   status          Boolean     @default(true)
   created_at      DateTime    @default(now())

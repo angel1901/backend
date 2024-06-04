@@ -21,7 +21,7 @@ import {
   AddOrderLineDto,
 } from './dto/order.dto';
 
-// @UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard)
 @Controller('orders')
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}

@@ -24,13 +24,39 @@ model User {
 }
 
 model Products {
-  id              String   @unique @default(uuid())
+  id              String      @unique @default(uuid())
   name            String
   description     String
   value           String
-  status          Boolean  @default(true)
+  status          Boolean     @default(true)
   url_image       String
   user_creator_id String
+  created_at      DateTime    @default(now())
+  updated_at      DateTime    @updatedAt()
+  OrderLine       OrderLine[]
+}
+
+model Order {
+  id              String      @unique @default(uuid())
+  value           Int         @default(0)
+  name            String
+  user_creator_id String
+  status          Boolean     @default(true)
+  created_at      DateTime    @default(now())
+  updated_at      DateTime    @updatedAt()
+  OrderLine       OrderLine[]
+}
+
+model OrderLine {
+  id              String   @unique @default(uuid())
+  quantity        Int      @default(0)
+  value           Int      @default(0)
+  orderId         String
+  order           Order    @relation(fields: [orderId], references: [id])
+  productId       String
+  product         Products @relation(fields: [productId], references: [id])
   created_at      DateTime @default(now())
   updated_at      DateTime @updatedAt()
+  user_creator_id String
+  status          Boolean  @default(true)
 }

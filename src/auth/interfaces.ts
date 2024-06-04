@@ -22,3 +22,17 @@ export interface DataProduct {
   user_creator_id: string;
   url_image: string;
 }
+
+export interface DataOrder {
+  value: number;
+  name: string;
+  user_creator_id: string;
+}
+
+export interface DataOrderLine {
+  orderId: string;
+  productId: string;
+  user_creator_id: string;
+  value: number;
+  quantity: number;
+}

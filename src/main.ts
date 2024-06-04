@@ -10,9 +10,11 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   app.use(cookieParser());
 
+  const otherAllowedHeaders = ['Authorization', 'X-Requested-With'];
+
   app.enableCors({
-    allowedHeaders: '*',
-    origin: '*',
+    allowedHeaders: ['Content-Type', ...otherAllowedHeaders],
+    origin: 'http://localhost:5173',
     credentials: true,
   });
 

@@ -59,7 +59,7 @@ export class AuthService {
       password,
     };
 
-    const isValidatePasswords = this.comparePasswords(args);
+    const isValidatePasswords = await this.comparePasswords(args);
 
     if (!isValidatePasswords) {
       throw new BadRequestException('Wrong info');
@@ -78,7 +78,7 @@ export class AuthService {
 
     res.cookie('token', token);
 
-    return res.send({ message: 'Logged in' });
+    return res.send({ status: 'success', message: 'Logged in' });
   }
 
   async signout(req: Request, res: Response) {
